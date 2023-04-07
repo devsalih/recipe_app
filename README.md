@@ -32,3 +32,15 @@ State management in this project is implemented using the `Provider` package, an
 To use the app, simply download the code and run it using the Flutter framework. More detailed instructions for running the app will be provided as development progresses.
 
 Please note that this project is still under development and may not be fully functional.
+
+## Demo
+![demo](https://user-images.githubusercontent.com/108530549/230675314-19a3e0ed-032f-48e3-b0cf-4fbeeb86ea01.mp4)
+
+## Screenshots
+| Screenshot 1         | Screenshot 2        |
+|----------------------|---------------------|
+| ![ss1](assets/ss1.jpg)  | ![ss2](assets/ss2.jpg) |
+
+| Screenshot 3        | Screenshot 4        |
+|---------------------|---------------------|
+| ![ss3](assets/ss3.jpg) | ![ss4](assets/ss4.jpg) |

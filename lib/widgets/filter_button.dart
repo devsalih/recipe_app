@@ -9,37 +9,68 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.orange,
-        borderRadius: BorderRadius.circular(50),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            offset: Offset(0, 4),
-            blurRadius: 4,
-            spreadRadius: 2,
+    SearchProvider provider = context.watch<SearchProvider>();
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.orange,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                offset: Offset(0, 4),
+                blurRadius: 4,
+                spreadRadius: 2,
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Container(
-        margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(50),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 2,
-              spreadRadius: 2,
+          child: Container(
+            margin: const EdgeInsets.all(5),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 2,
+                  spreadRadius: 2,
+                ),
+              ],
             ),
-          ],
+            child: IconButton(
+              icon: const Icon(FontAwesomeIcons.filter),
+              onPressed: provider.openFilter,
+            ),
+          ),
         ),
-        child: IconButton(
-          icon: const Icon(FontAwesomeIcons.filter),
-          onPressed: () => context.read<SearchProvider>().showFilter = true,
-        ),
-      ),
+        if (provider.filterCount > 0)
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Container(
+              width: 20,
+              height: 20,
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    spreadRadius: 4,
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  provider.filterCount.toString(),
+                  style: const TextStyle(color: Colors.white, fontSize: 10),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

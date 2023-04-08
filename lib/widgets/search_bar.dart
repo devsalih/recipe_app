@@ -10,7 +10,9 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
+    final TextEditingController controller = TextEditingController(
+      text: context.watch<SearchProvider>().query,
+    );
     return Container(
       margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -33,10 +35,12 @@ class SearchBar extends StatelessWidget {
           icon: Icon(FontAwesomeIcons.magnifyingGlass),
         ),
         onEditingComplete: () {
-          context.read<SearchProvider>().search.query = controller.text;
-          context.read<RecipeProvider>().getRecipes(context.read<SearchProvider>().search);
-          context.read<SearchProvider>().addSearch();
+          SearchProvider searchProvider = context.read<SearchProvider>();
+          RecipeProvider recipeProvider = context.read<RecipeProvider>();
           FocusScope.of(context).unfocus();
+          searchProvider.query = controller.text;
+          recipeProvider.getRecipes(searchProvider.search);
+          searchProvider.addSearch();
         },
       ),
     );

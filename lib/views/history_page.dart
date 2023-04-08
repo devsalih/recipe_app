@@ -69,7 +69,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   subtitle: 'Search for recipes to add to your history',
                   icon: FontAwesomeIcons.magnifyingGlass,
                 ),
-              ...history.reversed.map((search) {
+              ...history.map((search) {
                 return Dismissible(
                   key: ValueKey(search),
                   direction: _isEditing

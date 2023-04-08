@@ -7,9 +7,13 @@ class StringUtils {
 
   static String filters(Search search) {
     List<String> filters = [];
-    if (search.health.isNotEmpty) filters.add('Health: ${search.health}');
-    if (search.dishType.isNotEmpty) filters.add('Dish: ${search.dishType}');
-    if (search.mealType.isNotEmpty) filters.add('Meal: ${search.mealType}');
-    return filters.isEmpty ? 'No filters' : filters.join(', ');
+    if (search.health != 'All') filters.add('Health: ${search.health}');
+    if (search.dishType != 'All') filters.add('Dish: ${search.dishType}');
+    if (search.mealType != 'All') filters.add('Meal: ${search.mealType}');
+    return 'Filters: ${filters.isEmpty ? 'none' : filters.join(' | ')}';
+  }
+
+  static String capitalize(String value) {
+    return value[0].toUpperCase() + value.substring(1);
   }
 }

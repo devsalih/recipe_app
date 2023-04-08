@@ -28,13 +28,12 @@ class RecipeService {
       'type': 'public',
       'app_id': dotenv.env['APP_ID'],
       'app_key': dotenv.env['APP_KEY'],
-      'q': search.query,
     };
-
-    if (search.health.isNotEmpty) params['health'] = search.health;
-    if (search.mealType.isNotEmpty) params['mealType'] = search.mealType;
-    if (search.dishType.isNotEmpty) params['dishType'] = search.dishType;
-
+    if (search.query.isNotEmpty) params['q'] = search.query;
+    if (search.health != 'All') params['health'] = search.health;
+    if (search.mealType != 'All') params['mealType'] = search.mealType;
+    if (search.dishType != 'All') params['dishType'] = search.dishType;
+    print(params);
     final response = await _dio.get(_baseUrl, queryParameters: params);
 
     if (response.statusCode == 200) {

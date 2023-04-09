@@ -57,18 +57,15 @@ class _RecipesPageState extends State<RecipesPage> {
               offset: _offset,
               floatingActionButton: const FilterButton(),
               bottom: provider.nextUrl != null && recipes.isNotEmpty
-                  ? EmptyRow(
-                      hasBackground: true,
-                      title: provider.isSearching
-                          ? 'Searching...'
-                          : 'Load more recipes',
-                      subtitle: provider.isSearching
-                          ? 'Please wait'
-                          : 'Tap to load more recipes',
-                      icon: provider.isSearching
-                          ? FontAwesomeIcons.spinner
-                          : FontAwesomeIcons.plus,
-                      onTap: provider.getMoreRecipes,
+                  ? Opacity(
+                      opacity: provider.isSearching ? 0 : 1,
+                      child: EmptyRow(
+                        hasBackground: true,
+                        title: 'Load more recipes',
+                        subtitle: 'Tap to load more recipes',
+                        icon: FontAwesomeIcons.plus,
+                        onTap: provider.getMoreRecipes,
+                      ),
                     )
                   : null,
               children: [
@@ -79,12 +76,6 @@ class _RecipesPageState extends State<RecipesPage> {
                     title: 'Search for recipes',
                     subtitle: 'Type in the search bar above',
                     icon: FontAwesomeIcons.arrowUp,
-                  ),
-                if (provider.isSearching && recipes.isEmpty)
-                  const EmptyRow(
-                    title: 'Searching...',
-                    subtitle: 'Please wait',
-                    icon: FontAwesomeIcons.spinner,
                   ),
                 if (provider.noResult)
                   const EmptyRow(
@@ -100,6 +91,31 @@ class _RecipesPageState extends State<RecipesPage> {
             ),
           ],
         ),
+        if (provider.isSearching)
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    spreadRadius: 5,
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 20),
+                  Text('Searching for recipes...'),
+                ],
+              ),
+            ),
+          ),
       ],
     );
   }

@@ -44,11 +44,12 @@ class ScrollableBox extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white,
                       boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 10,
-                          spreadRadius: 5,
-                        ),
+                        if (children.isNotEmpty)
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 10,
+                            spreadRadius: 5,
+                          ),
                       ],
                     ),
                     child: ListView.builder(
@@ -58,9 +59,10 @@ class ScrollableBox extends StatelessWidget {
                       itemBuilder: (context, index) => children[index],
                     ),
                   ),
+                  if(bottom == null) const SizedBox(height: 105),
                   if (bottom != null)
                     Padding(padding: const EdgeInsets.all(20), child: bottom!),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 85),
                 ],
               ),
             ),

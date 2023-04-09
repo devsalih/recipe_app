@@ -103,7 +103,7 @@ class RecipeAppBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
-            'Recipe from ${recipe.source}',
+            'Source: ${recipe.source}',
             style: const TextStyle(color: Colors.white, fontSize: 8),
           ),
         ),

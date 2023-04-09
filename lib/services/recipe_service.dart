@@ -33,7 +33,6 @@ class RecipeService {
     if (search.health != 'All') params['health'] = search.health;
     if (search.mealType != 'All') params['mealType'] = search.mealType;
     if (search.dishType != 'All') params['dishType'] = search.dishType;
-    print(params);
     final response = await _dio.get(_baseUrl, queryParameters: params);
 
     if (response.statusCode == 200) {

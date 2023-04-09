@@ -8,6 +8,7 @@ class RecipeProvider with ChangeNotifier {
   final RecipeService recipeService = RecipeService();
   final List<Recipe> _recipes = [];
   final List<Recipe> _favorites = [];
+  Recipe? _randomRecipe;
   bool _isSearching = false;
   bool _noResult = false;
   String? _nextUrl;
@@ -15,6 +16,7 @@ class RecipeProvider with ChangeNotifier {
   bool get isSearching => _isSearching;
   bool get noResult => _noResult;
   String? get nextUrl => _nextUrl;
+  Recipe get randomRecipe => _randomRecipe!;
 
   set noResult(bool value) {
     _noResult = value;
@@ -23,6 +25,11 @@ class RecipeProvider with ChangeNotifier {
 
   set isSearching(bool value) {
     _isSearching = value;
+    notifyListeners();
+  }
+
+  set randomRecipe(Recipe value) {
+    _randomRecipe = value;
     notifyListeners();
   }
 
@@ -47,6 +54,15 @@ class RecipeProvider with ChangeNotifier {
     addRecipes(model?.recipes);
     _nextUrl = recipeService.nextUrl;
     if(recipes.isEmpty) noResult = true;
+    isSearching = false;
+    notifyListeners();
+  }
+
+  Future<void> getRandomRecipe(String mealType) async {
+    isSearching = true;
+    Recipe? recipe = await recipeService.getRandomRecipe(mealType);
+    if(recipe == null) return getRandomRecipe(mealType);
+    randomRecipe = recipe;
     isSearching = false;
     notifyListeners();
   }

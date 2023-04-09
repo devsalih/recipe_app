@@ -45,4 +45,23 @@ class RecipeService {
     }
     return null;
   }
+
+  Future<Recipe?> getRandomRecipe(String mealType) async {
+    final response = await _dio.get(
+      'https://api.edamam.com/api/recipes/v2',
+      queryParameters: {
+        'type': 'public',
+        'app_id': dotenv.env['APP_ID'],
+        'app_key': dotenv.env['APP_KEY'],
+        'random': true,
+        'mealType': mealType,
+      },
+    );
+    if (response.statusCode == 200) {
+      final jsonBody = response.data;
+      if (jsonBody is Map<String, dynamic>) {
+        return Recipe.fromJson(jsonBody['hits'][0]['recipe']);
+      }
+    }
+  }
 }

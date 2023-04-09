@@ -73,5 +73,13 @@ class RecipeProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void toggleFavorite(Recipe recipe) {
+    if(isFavorite(recipe)) {
+      removeFavorite(recipe);
+    } else {
+      addFavorite(recipe);
+    }
+  }
+
   bool isFavorite(Recipe recipe) => _favorites.contains(recipe);
 }

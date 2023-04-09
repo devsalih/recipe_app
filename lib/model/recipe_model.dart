@@ -40,7 +40,6 @@ class Recipe {
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
-    print(json['cuisineType']);
     return Recipe(
       label: json['label'],
       image: json['image'],

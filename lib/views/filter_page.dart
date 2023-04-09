@@ -176,7 +176,7 @@ class _FilterViewState extends State<FilterView> {
           margin: const EdgeInsets.only(bottom: 20),
           padding: const EdgeInsets.only(top: 20),
           decoration: const BoxDecoration(
-            color: Colors.white,
+            color: Colors.orange,
             boxShadow: [
               BoxShadow(
                 color: Colors.black12,
@@ -188,30 +188,28 @@ class _FilterViewState extends State<FilterView> {
           child: SafeArea(
             bottom: false,
             child: ListTile(
-              leading: CloseButton(onPressed: () {
-                setState(() {
-                  health = provider.health;
-                  dishType = provider.dishType;
-                  mealType = provider.mealType;
-                });
-                provider.closeFilter();
-              }),
+              leading: IconButton(
+                color: Colors.black54,
+                onPressed: () {
+                  setState(() {
+                    health = provider.health;
+                    dishType = provider.dishType;
+                    mealType = provider.mealType;
+                  });
+                  provider.closeFilter();
+                },
+                icon: const Icon(FontAwesomeIcons.xmark),
+              ),
               title: const Text('Filter'),
-              trailing: TextButton(
-                onPressed: hasFilter
-                    ? () {
-                        setState(() {
-                          health = 'All';
-                          dishType = 'All';
-                          mealType = 'All';
-                        });
-                      }
-                    : null,
+              trailing: OutlinedButton(
+                style: TextButton.styleFrom(foregroundColor: Colors.black),
+                onPressed: hasFilter ? clearFilters : null,
                 child: const Text('Clear All'),
               ),
             ),
           ),
         ),
+        const Divider(),
         ListTile(
           onTap: () => setState(() => _page = 1),
           leading: const Icon(FontAwesomeIcons.solidHeart, color: Colors.red),
@@ -235,7 +233,7 @@ class _FilterViewState extends State<FilterView> {
           subtitle: Text(StringUtils.capitalize(mealType)),
           trailing: const Icon(FontAwesomeIcons.chevronRight),
         ),
-        const Spacer(),
+        const Divider(),
         Container(
           margin: const EdgeInsets.only(bottom: 20),
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -249,6 +247,14 @@ class _FilterViewState extends State<FilterView> {
         ),
       ],
     );
+  }
+
+  void clearFilters() {
+    setState(() {
+      health = 'All';
+      dishType = 'All';
+      mealType = 'All';
+    });
   }
 
   void applyFilter(SearchProvider provider) {
@@ -273,7 +279,7 @@ class _FilterViewState extends State<FilterView> {
         Container(
           padding: const EdgeInsets.only(top: 20),
           decoration: const BoxDecoration(
-            color: Colors.white,
+            color: Colors.orange,
             boxShadow: [
               BoxShadow(
                 color: Colors.black12,
@@ -286,11 +292,13 @@ class _FilterViewState extends State<FilterView> {
             bottom: false,
             child: ListTile(
               leading: IconButton(
+                color: Colors.black54,
                 onPressed: () => setState(() => _page = 0),
                 icon: const Icon(FontAwesomeIcons.arrowLeft),
               ),
               title: Text(title),
-              trailing: TextButton(
+              trailing: OutlinedButton(
+                style: TextButton.styleFrom(foregroundColor: Colors.black),
                 onPressed: selected == 'All' ? null : clear,
                 child: const Text('Clear'),
               ),
